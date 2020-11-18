@@ -15,6 +15,7 @@
     (shell (concat _/shell-prefix name))))
 
 (define-key global-map (kbd "H-4") '_/spawn-shell!)
+(define-key global-map (kbd "M-4") '_/spawn-shell!)
 
 ;; https://github.com/syl20bnr/spacemacs/issues/6820#issuecomment-239665146
 (push (cons _/shell-prefix

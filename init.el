@@ -51,6 +51,12 @@
 (defvar lux-stdlib-group (concat lux-group " | Standard library"))
 (defvar lux-stdlib-root (concat lux-root "/stdlib"))
 
+(defvar lux-aedifex-group (concat lux-group " | Aedifex"))
+(defvar lux-aedifex-root (concat lux-stdlib-root "/source/program/aedifex"))
+
+(defvar lux-licentia-group (concat lux-group " | Licentia"))
+(defvar lux-licentia-root (concat lux-stdlib-root "/source/program/licentia"))
+
 (defvar lux-lein-group (concat lux-group " | Leiningen plugin"))
 (defvar lux-lein-root (concat lux-root "/lux-lein"))
 
@@ -59,9 +65,6 @@
 
 (defvar lux-jvm-group (concat lux-group " | JVM compiler"))
 (defvar lux-jvm-root (concat lux-root "/new-luxc"))
-
-(defvar reify-health-group "Reify Health")
-(defvar reify-health-root (file-truename "~/workspace/Reify_Health"))
 
 (defvar home-group "Home")
 (defvar home-root (file-truename "~"))
@@ -87,8 +90,13 @@
 
 ;; https://stackoverflow.com/questions/15717103/preferred-method-of-overriding-an-emacs-lisp-function
 (defun centaur-tabs-get-group-name (buffer)
-  (cond ((string-prefix-p lux-stdlib-root (buffer-file-name buffer))
+  (cond ((string-prefix-p lux-aedifex-root (buffer-file-name buffer))
+         lux-aedifex-group)
+		((string-prefix-p lux-licentia-root (buffer-file-name buffer))
+         lux-licentia-group)
+		((string-prefix-p lux-stdlib-root (buffer-file-name buffer))
          lux-stdlib-group)
+		
 		((string-prefix-p lux-lein-root (buffer-file-name buffer))
          lux-lein-group)
 		((string-prefix-p lux-old-root (buffer-file-name buffer))
@@ -97,9 +105,6 @@
          lux-jvm-group)
 		((string-prefix-p lux-root (buffer-file-name buffer))
          lux-group)
-        
-        ((string-prefix-p reify-health-root (buffer-file-name buffer))
-         reify-health-group)
 
 		((string-prefix-p emacs-root (buffer-file-name buffer))
          emacs-group)
@@ -111,8 +116,13 @@
 (require 'ibuffer) 
 (setq ibuffer-saved-filter-groups
 	  `(("default"
+		 (,lux-aedifex-group
+		  (filename . ,lux-aedifex-root))
+		 (,lux-licentia-group
+		  (filename . ,lux-licentia-root))
 		 (,lux-stdlib-group
 		  (filename . ,lux-stdlib-root))
+		 
 		 (,lux-lein-group
 		  (filename . ,lux-lein-root))
 		 (,lux-old-group
@@ -121,10 +131,7 @@
 		  (filename . ,lux-jvm-root))
 		 (,lux-group
 		  (filename . ,lux-root))
-		 
-		 (,reify-health-group
-		  (filename . ,reify-health-root))
-		 
+
 		 (,emacs-group
 		  (filename . ,emacs-root))
 		 )))
@@ -191,7 +198,6 @@
   (let ((choice (read-multiple-choice
                  "Workspace"
                  `((?l ,lux-group ,lux-root)
-                   (?r ,reify-health-group ,reify-health-root)
                    (?e ,emacs-group ,emacs-root)
 				   (?h ,home-group ,home-root)
                    ))))
@@ -200,6 +206,7 @@
     (neotree-show)))
 
 (define-key global-map (kbd "H-2") #'@/select-workspace)
+(define-key global-map (kbd "M-2") #'@/select-workspace)
 
 (defun @/initialize ()
   (neotree-dir lux-root)

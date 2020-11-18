@@ -20,7 +20,6 @@
 (define-key key-translation-map (kbd "`") (kbd "~"))
 (define-key key-translation-map (kbd ";") (kbd ":"))
 (define-key key-translation-map (kbd "'") (kbd "\""))
-(define-key key-translation-map (kbd "\\") (kbd "\|"))
 
 (define-key key-translation-map (kbd "!") (kbd "1"))
 (define-key key-translation-map (kbd "@") (kbd "2"))
@@ -35,6 +34,5 @@
 (define-key key-translation-map (kbd "~") (kbd "`"))
 (define-key key-translation-map (kbd ":") (kbd ";"))
 (define-key key-translation-map (kbd "\"") (kbd "'"))
-(define-key key-translation-map (kbd "\|") (kbd "\\"))
 
 (provide '_input)
